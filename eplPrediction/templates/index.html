@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      table, th, td {
+        border:1px solid black;
+        text-align: center;
+        font-weight: bolder;
+        color: whitesmoke;
+        background-color: rgb(187, 145, 39);
+      }
+      </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Football Odds</title>
+    <script src="{{url_for('static', filename='test_index.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" /> 
+  </head>
+  <body>
+    <form action="/odds" method="POST">
+      <div class="select">
+        <div class="select1">
+          <input list="teams1" name="team1" id="team" placeholder="Select Team" onchange="validateForm()" />
+          <datalist id="teams1">
+          </datalist>
+        </div>
+
+        <h1>VS</h1>
+        <div class="select2">
+            <input list="teams2" name="team2" id="team" placeholder="Select Team" onchange="validateForm()" />
+            <datalist id="teams2">
+            </datalist>
+        </div>
+
+        <button type="submit" class="button" id="odds" disabled>
+          Generate Odds
+        </button>
+      </div>
+    </form>
+    {% if odds %}
+        <br>
+     <center><table style="width:65%">
+        <tr>
+          {% for i in range(odds|length-4) %}
+          <th>{{ odds[-2] }}</th>
+          {% endfor %}
+          <th>Draw</th>
+          {% for i in range(odds|length-4) %}
+          <th>{{ odds[-1] }}</th>
+          {% endfor %}
+        </tr>
+        <tr>
+            {% for i in range(odds|length-4) %}
+            <td>{{ odds[-3] }} </td>
+            {% endfor %}
+
+          {% for i in range(odds|length-4) %}
+          <td>{{ odds[-4] }}</td>
+          {% endfor %}
+
+          {% for i in range(odds|length-4) %}
+          <td>{{ odds[-5] }}</td>
+          {% endfor %}
+        </tr>
+            <p></p>
+     {% endif %}
+     </table></center>
+
+   
+  </body>
+</html>
